@@ -6,11 +6,19 @@ metadata:
   name: {{ include "libvirt-exporter.fullname" . }}
   labels:
 {{- include "libvirt-exporter.labels" . | indent 4 }}
+{{- if .Values.service.annotations }}
+  annotations:
+{{ toYaml .Values.service.annotations | indent 4 }}
+{{- end }}
 spec:
-  #clusterIP: ClusterIP
+  type: {{ .Values.service.type }}
   ports:
   - name: metrics
-    port: 9177
-    targetPort: metrics
+    port: {{ .Values.service.port }}
+    targetPort: {{ .Values.service.targetPort }}
+  {{- if ( and (eq .Values.service.type "NodePort" ) (not (empty .Values.service.nodePort)) ) }}
+    nodePort: {{ .Values.service.nodePort }}
+  {{- end }}
+    protocol: TCP
   selector:
 {{- include "libvirt-exporter.labels" . | indent 4 }}

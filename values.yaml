@@ -3,3 +3,14 @@ image:
   repository: 10.2.10.2:5000/libvirt_exporter
   tag: v0.1.1
   pullPolicy: IfNotPresent
+
+nodeSelector:
+  openstack-compute-node: enabled
+
+service:
+  type: ClusterIP
+  port: 9177
+  targetPort: 9177
+  nodePort:
+  annotations:
+    prometheus.io/scrape: "true"
