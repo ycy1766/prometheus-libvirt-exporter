@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "libvirt-exporter.fullname" . }}
+  labels:
+{{- include "libvirt-exporter.labels" . | indent 4 }}
+spec:
+  selector:
+    matchLabels:
+{{- include "libvirt-exporter.labels" . | indent 6 }}
+  template:
+    metadata:
+      labels:
+{{- include "libvirt-exporter.labels" . | indent 8 }}
+    spec:
+      containers:
+      - name: libvirt-exporter
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        volumeMounts:
+          - name: libvirt-sock
+            mountPath: /var/run/libvirt/libvirt-sock
+        ports:
+        - name: metrics
+          containerPort: 9177     
+      volumes:
+      - name: libvirt-sock
+        hostPath:
+        path: /var/run/libvirt/libvirt-sock
+

@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "libvirt-exporter.fullname" . }}
+  labels:
+{{- include "libvirt-exporter.labels" . | indent 4 }}
+spec:
+  #clusterIP: ClusterIP
+  ports:
+  - name: metrics
+    port: 9177
+    targetPort: metrics
+  selector:
+{{- include "libvirt-exporter.labels" . | indent 4 }}
