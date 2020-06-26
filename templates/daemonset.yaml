@@ -15,10 +15,12 @@ spec:
       labels:
 {{- include "libvirt-exporter.labels" . | indent 8 }}
     spec:
-      security_context:
-        runAsUser: 0
       containers:
       - name: libvirt-exporter
+        securityContext:
+          runAsUser: 0
+          privileged: true
+          readOnlyRootFilesystem: false
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         volumeMounts:
@@ -30,11 +32,10 @@ spec:
       volumes:
       - name: libvirt-sock
         hostPath:
-        path: /var/run/libvirt/libvirt-sock
+          path: /var/run/libvirt/libvirt-sock
+          type: Socket
 {{- if .Values.nodeSelector }}
       nodeSelector:
       {{ toYaml .Values.nodeSelector | indent 6 }}
 {{- end }}
 
-
-          
