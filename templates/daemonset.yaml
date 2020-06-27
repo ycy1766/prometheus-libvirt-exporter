@@ -13,6 +13,7 @@ spec:
   template:
     metadata:
       labels:
+        exporter: libvirt
 {{- include "libvirt-exporter.labels" . | indent 8 }}
     spec:
       containers:

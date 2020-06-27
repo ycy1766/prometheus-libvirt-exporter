@@ -20,5 +20,6 @@ spec:
     nodePort: {{ .Values.service.nodePort }}
   {{- end }}
     protocol: TCP
+  sessionAffinity: None 
   selector:
 {{- include "libvirt-exporter.labels" . | indent 4 }}
