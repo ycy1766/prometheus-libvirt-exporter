@@ -1,5 +1,6 @@
 ---
 image:
+  # repository: ycy1766/libvirt_exporter:
   repository: 10.2.10.2:5000/libvirt_exporter
   tag: v0.1.1
   pullPolicy: IfNotPresent
