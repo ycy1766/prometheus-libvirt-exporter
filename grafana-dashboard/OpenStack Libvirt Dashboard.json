@@ -112,7 +112,7 @@
       "pluginVersion": "7.0.3",
       "targets": [
         {
-          "expr": "sum(libvirt_domain_info_maximum_memory_bytes{instance=~\".*\"})",
+          "expr": "sum(libvirt_domain_info_maximum_memory_bytes{instance=~\"$compute_node\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -169,7 +169,7 @@
       "pluginVersion": "7.0.3",
       "targets": [
         {
-          "expr": "sum(libvirt_domain_info_virtual_cpus{instance=~\".*\",name=~\"$vm_name\"})",
+          "expr": "sum(libvirt_domain_info_virtual_cpus{instance=~\"$compute_node\",name=~\"$vm_name\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -434,7 +434,7 @@
       "pluginVersion": "7.0.3",
       "targets": [
         {
-          "expr": "sum(libvirt_domain_info_memory_usage_bytes{instance=~\".*\"})",
+          "expr": "sum(libvirt_domain_info_memory_usage_bytes{instance=~\"$compute_node\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1153,14 +1153,14 @@
         "allValue": null,
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
-        "definition": "label_values(libvirt_domain_info_memory_usage_bytes{job=\"prometheus-libvirt-exporter\",project_name=\"$project_name\",instance=~\".*\"}, name)",
+        "definition": "label_values(libvirt_domain_info_memory_usage_bytes{job=\"prometheus-libvirt-exporter\",project_name=\"$project_name\",instance=~\"$compute_node\"}, name)",
         "hide": 0,
         "includeAll": true,
         "label": null,
         "multi": true,
         "name": "vm_name",
         "options": [],
-        "query": "label_values(libvirt_domain_info_memory_usage_bytes{job=\"prometheus-libvirt-exporter\",project_name=\"$project_name\",instance=~\".*\"}, name)",
+        "query": "label_values(libvirt_domain_info_memory_usage_bytes{job=\"prometheus-libvirt-exporter\",project_name=\"$project_name\",instance=~\"$compute_node\"}, name)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
