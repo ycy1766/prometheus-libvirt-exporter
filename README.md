@@ -32,7 +32,21 @@ helm install prometheus-libvirt-exporter -f values.yaml .
          action: keep
 ```
 
+**check label and set the nodeselector**
+```
+[root@deploy1 ~]# kubectl get nodes --show-labels
+NAME        STATUS     ROLES    AGE   VERSION   LABELS
+master1   Ready      master   2d   v1.16.8   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,fluent-logging=enabled,kubernetes.io/arch=amd64,kubernetes.io/hostname=master1,kubernetes.io/os=linux,node-exporter=enabled,node-role.kubernetes.io/master=,openstack-control-plane=enabled,openvswitch=enabled
+master2   Ready      master   2d   v1.16.8   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,fluent-logging=enabled,kubernetes.io/arch=amd64,kubernetes.io/hostname=master2,kubernetes.io/os=linux,node-exporter=enabled,node-role.kubernetes.io/master=,openstack-control-plane=enabled,openvswitch=enabled
+master3   Ready      master   2d   v1.16.8   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,fluent-logging=enabled,kubernetes.io/arch=amd64,kubernetes.io/hostname=master3,kubernetes.io/os=linux,node-exporter=enabled,node-role.kubernetes.io/master=,openstack-control-plane=enabled,openvswitch=enabled
+worker1   Ready      <none>   2d   v1.16.8   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,fluent-logging=enabled,kubernetes.io/arch=amd64,kubernetes.io/hostname=worker1,kubernetes.io/os=linux,node-exporter=enabled,openstack-compute-node=enabled,openvswitch=enabled
+worker2   Ready      <none>   2d   v1.16.8   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,fluent-logging=enabled,kubernetes.io/arch=amd64,kubernetes.io/hostname=worker2,kubernetes.io/os=linux,node-exporter=enabled,openstack-compute-node=enabled,openvswitch=enabled
+worker3   NotReady   <none>   2d   v1.16.8   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,fluent-logging=enabled,kubernetes.io/arch=amd64,kubernetes.io/hostname=worker3,kubernetes.io/os=linux,node-exporter=enabled,openstack-compute-node=enabled,openvswitch=enabled
+```
+
 ### grafana dashboard 
-  2 files in this repository.
-  - OpenStack Libvirt Dashboard.json (this dashboard has 'instance="$compute_node"')
-  - Libvirt Dashboard.json
+2 files in this repository.
+- OpenStack Libvirt Dashboard.json (this dashboard has 'instance="$compute_node"')
+- Libvirt Dashboard.json
+
+These dashboard json file can be imported on Grafana.
